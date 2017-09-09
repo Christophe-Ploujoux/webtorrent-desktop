@@ -238,7 +238,7 @@ module.exports = class TorrentList extends React.Component {
         </i>
       )
     }
-
+    let deleteMode = (torrentSummary.status !== 'seeding') ? "confirmDeleteTorrent" : "deleteTorrent";
     return (
       <div className='torrent-controls'>
         {playButton}
@@ -246,7 +246,7 @@ module.exports = class TorrentList extends React.Component {
           key='delete-button'
           className='icon delete'
           title='Remove torrent'
-          onClick={dispatcher('confirmDeleteTorrent', infoHash, false)}>
+          onClick={dispatcher(deleteMode, infoHash, false)}>
           close
         </i>
       </div>
