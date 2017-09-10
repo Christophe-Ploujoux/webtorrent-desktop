@@ -8,6 +8,7 @@ const MuiThemeProvider = require('material-ui/styles/MuiThemeProvider').default
 
 const Header = require('../components/header')
 
+
 // Perf optimization: Needed immediately, so do not lazy load it below
 const TorrentListPage = require('./torrent-list-page')
 
@@ -15,8 +16,10 @@ const Views = {
   'home': createGetter(() => TorrentListPage),
   'player': createGetter(() => require('./player-page')),
   'create-torrent': createGetter(() => require('./create-torrent-page')),
+  'search-torrent': createGetter(() => require('./search-torrent-page')),
   'preferences': createGetter(() => require('./preferences-page'))
 }
+
 
 const Modals = {
   'open-torrent-address-modal': createGetter(

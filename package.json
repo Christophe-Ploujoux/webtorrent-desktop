@@ -44,6 +44,7 @@
     "simple-concat": "^1.0.0",
     "simple-get": "^2.0.0",
     "srt-to-vtt": "^1.1.1",
+    "thepiratebay": "^1.4.5",
     "vlc-command": "^1.0.1",
     "webtorrent": "0.x",
     "winreg": "^1.2.0",
