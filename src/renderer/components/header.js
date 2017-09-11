@@ -1,5 +1,4 @@
 const React = require('react')
-
 const {dispatcher} = require('../lib/dispatcher')
 
 class Header extends React.Component {
@@ -48,7 +47,7 @@ class Header extends React.Component {
     if (state.location.url() !== 'home') return null
     return (
       <i
-        className='icon add'
+        className='icon add pointer'
         title='Add torrent'
         onClick={dispatcher('openFiles')}>
         add
@@ -57,10 +56,10 @@ class Header extends React.Component {
   }
   getUrlButton () {
     const state = this.props.state
-    if (state.location.url() !== 'home') return null
+    if (state.location.url() !== 'home' && state.location.url() !== 'seqarch-torrent') return null
     return (
       <i
-        className='icon url'
+        className='icon url pointer'
         title='Adress url'
         onClick={dispatcher('openTorrentAddress')}>
         language
@@ -72,9 +71,9 @@ class Header extends React.Component {
     if (state.location.url() !== 'home') return null
     return (
       <i
-        className='icon url'
+        className='icon url pointer'
         title='Search search'
-        onClick={dispatcher('searchTorrent')}>
+        onClick={dispatcher('search-torrent')}>
         search
       </i>
     ) 

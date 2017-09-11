@@ -232,9 +232,9 @@ module.exports = class TorrentList extends React.Component {
         <i
           key='play-button'
           title='Start streaming'
-          className={'icon play'}
+          className={'icon play pointer'}
           onClick={dispatcher('playFile', infoHash)}>
-          play_circle_outline
+          play
         </i>
       )
     }
@@ -244,7 +244,7 @@ module.exports = class TorrentList extends React.Component {
         {playButton}
         <i
           key='delete-button'
-          className='icon delete'
+          className='icon delete pointer'
           title='Remove torrent'
           onClick={dispatcher(deleteMode, infoHash, false)}>
           close

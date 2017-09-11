@@ -123,7 +123,9 @@ function setupStateSaved (cb) {
       externalPlayerPath: null,
       startup: false
     },
+    activeSearchTorrent:"",
     torrents: config.DEFAULT_TORRENTS.map(createTorrentObject),
+    searchTorrents: [],
     torrentsToResume: [],
     version: config.APP_VERSION /* make sure we can upgrade gracefully later */
   }

@@ -15,6 +15,7 @@
     "application-config": "^1.0.0",
     "arch": "^2.0.0",
     "auto-launch": "^4.0.1",
+    "axios": "^0.16.2",
     "bitfield": "^1.0.2",
     "capture-frame": "^1.0.0",
     "chromecasts": "^1.8.0",
