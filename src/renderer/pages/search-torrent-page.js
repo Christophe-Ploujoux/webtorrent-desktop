@@ -41,6 +41,7 @@ class SearchPage extends React.Component {
   }
 
   renderTableRows() {
+    if (!this.props.state.saved.searchTorrents) this.props.state.saved.searchTorrents = []
     return this.props.state.saved.searchTorrents.map((torrent) => {
       return (
         <TableRow>
