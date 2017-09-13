@@ -49,9 +49,10 @@ class SearchPage extends React.Component {
       return (
         <TableRow>
           <TableRowColumn style={style}>{torrent.name}</TableRowColumn>
-          <TableRowColumn>{torrent.category.name}</TableRowColumn>
-          <TableRowColumn>{torrent.seeders}</TableRowColumn>
-          <TableRowColumn>{torrent.leechers}</TableRowColumn>
+          <TableRowColumn>{torrent.category}</TableRowColumn>
+          <TableRowColumn>{torrent.seeds}</TableRowColumn>
+          <TableRowColumn>{torrent.peers}</TableRowColumn>
+          <TableRowColumn>{torrent.size}</TableRowColumn>
           <TableRowColumn>
             <i
               className='icon url'
@@ -77,6 +78,7 @@ class SearchPage extends React.Component {
             <TableHeaderColumn>Category</TableHeaderColumn>
             <TableHeaderColumn>Seeders</TableHeaderColumn>
             <TableHeaderColumn>Leecher</TableHeaderColumn>
+            <TableHeaderColumn>Size</TableHeaderColumn>
             <TableHeaderColumn></TableHeaderColumn>
           </TableRow>
         </TableHeader>

@@ -1,7 +1,7 @@
 const {dispatch} = require('../lib/dispatcher')
 const PirateBay = require('thepiratebay');
 
-
+const TorrentSearch = require('../lib/torrent-search');
 const nodeConsole = require('console');
 const myConsole = new nodeConsole.Console(process.stdout, process.stderr);
 
@@ -16,7 +16,6 @@ module.exports = class SearchController {
     this.state.location.go({
       url: 'search-torrent',
       setup: function (cb) {
-        // initialize search torrent
         state.window.title = 'Search torrent'
         cb()
       }
@@ -25,15 +24,32 @@ module.exports = class SearchController {
 
   getSearchTorrent() {
     this.state.searchLoading = true
-    PirateBay.search(this.state.saved.activeSearchTorrent)
-    .then((results) => {
+    TorrentSearch.PirateBaySearch(this.state.saved.activeSearchTorrent)
+    .then((result) => {
       this.state.searchLoading = false
-      this.state.saved.searchTorrents = results;
+      this.state.saved.searchTorrents = result;
+      this.state.saved.searchTorrents.sort((a, b) => {
+        return (b.seeds - a.seeds);
+      });
+      return TorrentSearch.YifySearch(this.state.saved.activeSearchTorrent);
+    })
+    .then((result) => {
+      this.state.saved.searchTorrents = this.state.saved.searchTorrents.concat(result);
+      this.state.saved.searchTorrents.sort((a, b) => {
+        return (b.seeds - a.seeds);
+      });
+      return TorrentSearch.EztvSearch(this.state.saved.activeSearchTorrent);
+    })
+    .then((result)=> {
+      this.state.saved.searchTorrents = this.state.saved.searchTorrents.concat(result);
+      this.state.saved.searchTorrents.sort((a, b) => {
+        return (b.seeds - a.seeds);
+      });
     })
     .catch((err) => {
       this.state.searchLoading = false
       if (err) dispatch('error', err)
-    })    
+    }); 
   }
 
   setActiveSearchTorrent(name) {
