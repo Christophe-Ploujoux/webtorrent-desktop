@@ -41,11 +41,14 @@ class SearchPage extends React.Component {
   }
 
   renderTableRows() {
+    let style = {
+      width: "750px"
+    }
     if (!this.props.state.saved.searchTorrents) this.props.state.saved.searchTorrents = []
     return this.props.state.saved.searchTorrents.map((torrent) => {
       return (
         <TableRow>
-          <TableRowColumn>{torrent.name}</TableRowColumn>
+          <TableRowColumn style={style}>{torrent.name}</TableRowColumn>
           <TableRowColumn>{torrent.category.name}</TableRowColumn>
           <TableRowColumn>{torrent.seeders}</TableRowColumn>
           <TableRowColumn>{torrent.leechers}</TableRowColumn>
@@ -63,11 +66,14 @@ class SearchPage extends React.Component {
   }
 
   renderTable() {
+    let style = {
+      width: "750px"
+    }
     return (
       <Table>
         <TableHeader displaySelectAll={false} adjustForCheckbox={false}>
           <TableRow>
-            <TableHeaderColumn>Name</TableHeaderColumn>
+            <TableHeaderColumn style={style}>Name</TableHeaderColumn>
             <TableHeaderColumn>Category</TableHeaderColumn>
             <TableHeaderColumn>Seeders</TableHeaderColumn>
             <TableHeaderColumn>Leecher</TableHeaderColumn>
@@ -75,7 +81,7 @@ class SearchPage extends React.Component {
           </TableRow>
         </TableHeader>
         <TableBody displayRowCheckbox={false}>
-        {this.renderTableRows()}
+          {this.renderTableRows()}
         </TableBody>
       </Table>
     )
@@ -88,6 +94,7 @@ class SearchPage extends React.Component {
       </div>
     )
   }
+
   renderForm() {
     return (
       <form className="search-form" onSubmit={(event) => dispatch('getSearchTorrent')}>

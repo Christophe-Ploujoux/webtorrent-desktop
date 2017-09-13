@@ -948,6 +948,9 @@ video::-webkit-media-text-track-container {
 .icon,.pointer {
   cursor:pointer;
 }
+.search-torrent-page {
+  -webkit-app-region: no-drag;
+}
 .search-form {
   padding: 20px;
   width: 100%;
