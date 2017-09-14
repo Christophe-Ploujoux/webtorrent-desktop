@@ -62,7 +62,7 @@ class TorrentSearch {
             category:show.category.name,
             provider:"PIRATE",
             name: show.name,
-            magnet: show.magnet,
+            magnet: show.magnetLink,
             size: show.size,
             seeds: show.seeders,
             peers: show.leechers

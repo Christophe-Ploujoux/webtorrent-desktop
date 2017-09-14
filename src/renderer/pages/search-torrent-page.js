@@ -27,7 +27,7 @@ class SearchPage extends React.Component {
   }
 
   handleDownloadTorrent(torrent) {
-    dispatch('addTorrent', torrent.magnetLink, true, true)
+    dispatch('addTorrent', torrent.magnet, true, true)
   }
 
   render () {
