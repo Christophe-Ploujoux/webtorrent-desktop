@@ -1,4 +1,4 @@
-const request = require('request');
+const axios = require('axios');
 
 const API = {
   list: 'https://yts.ag/api/v2/list_movies.json',
@@ -21,7 +21,7 @@ const magnetURI = (hash, title) => {
 }
 
 exports.search = (query, callback) => {
-  request({url: API.list, method: 'GET', qs: {query_term: query}, json: true}, (err, res, body) => {
+  axios({url: API.list, method: 'GET', qs: {query_term: query}, json: true}, (err, res, body) => {
     if (err) return callback(err)
     if (res.statusCode !== 200) {
       return callback(new Error(`Bad status code: ${res.statusCode}`))
@@ -47,7 +47,7 @@ exports.search = (query, callback) => {
 }
 
 exports.detail = (id, callback) => {
-  request({url: API.detail, method: 'GET', qs: {movie_id: id}, json: true}, (err, res, body) => {
+  axios({url: API.detail, method: 'GET', qs: {movie_id: id}, json: true}, (err, res, body) => {
     if (err) return callback(err)
     if (res.statusCode !== 200) {
       return callback(new Error(`Bad status code: ${res.statusCode}`))
