@@ -945,3 +945,21 @@ video::-webkit-media-text-track-container {
 .control * {
   cursor: default !important;
 }
+.icon,.pointer {
+  cursor:pointer;
+}
+.search-torrent-page {
+  -webkit-app-region: no-drag;
+}
+.search-form {
+  padding: 20px;
+  width: 100%;
+}
+.search-input-field {
+  width: 100%;
+}
+.loader-container {
+  height: 100%;
+  text-align:center;
+  width: 100%;
+}

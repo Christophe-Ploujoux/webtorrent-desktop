@@ -8,6 +8,9 @@ const MuiThemeProvider = require('material-ui/styles/MuiThemeProvider').default
 
 const Header = require('../components/header')
 
+const nodeConsole = require('console');
+const myConsole = new nodeConsole.Console(process.stdout, process.stderr);
+
 // Perf optimization: Needed immediately, so do not lazy load it below
 const TorrentListPage = require('./torrent-list-page')
 
@@ -15,8 +18,10 @@ const Views = {
   'home': createGetter(() => TorrentListPage),
   'player': createGetter(() => require('./player-page')),
   'create-torrent': createGetter(() => require('./create-torrent-page')),
+  'search-torrent': createGetter(() => require('./search-torrent-page')),
   'preferences': createGetter(() => require('./preferences-page'))
 }
+
 
 const Modals = {
   'open-torrent-address-modal': createGetter(
@@ -46,7 +51,6 @@ let lightMuiTheme
 class App extends React.Component {
   render () {
     const state = this.props.state
-
     // Hide player controls while playing video, if the mouse stays still for a while
     // Never hide the controls when:
     // * The mouse is over the controls or we're scrubbing (see CSS)

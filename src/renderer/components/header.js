@@ -1,5 +1,4 @@
 const React = require('react')
-
 const {dispatcher} = require('../lib/dispatcher')
 
 class Header extends React.Component {
@@ -28,6 +27,12 @@ class Header extends React.Component {
         <div className='nav right float-right'>
           {this.getAddButton()}
         </div>
+        <div className='nav right float-right'>
+          {this.getUrlButton()}
+        </div>
+        <div className='nav right float-right'>
+          {this.getSearchButton()}
+        </div>
       </div>
     )
   }
@@ -37,18 +42,41 @@ class Header extends React.Component {
     const state = this.props.state
     return (<div className='title ellipsis'>{state.window.title}</div>)
   }
-
   getAddButton () {
     const state = this.props.state
     if (state.location.url() !== 'home') return null
     return (
       <i
-        className='icon add'
+        className='icon add pointer'
         title='Add torrent'
         onClick={dispatcher('openFiles')}>
         add
       </i>
     )
+  }
+  getUrlButton () {
+    const state = this.props.state
+    if (state.location.url() !== 'home' && state.location.url() !== 'seqarch-torrent') return null
+    return (
+      <i
+        className='icon url pointer'
+        title='Adress url'
+        onClick={dispatcher('openTorrentAddress')}>
+        language
+      </i>
+    )    
+  }
+  getSearchButton (){
+    const state = this.props.state
+    if (state.location.url() !== 'home') return null
+    return (
+      <i
+        className='icon url pointer'
+        title='Search search'
+        onClick={dispatcher('search-torrent')}>
+        search
+      </i>
+    ) 
   }
 }
 

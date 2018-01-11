@@ -19,7 +19,7 @@ module.exports = class TorrentListController {
 
   // Adds a torrent to the list, starts downloading/seeding.
   // TorrentID can be a magnet URI, infohash, or torrent file: https://git.io/vik9M
-  addTorrent (torrentId) {
+  addTorrent (torrentId, stayPage, snackBar) {
     if (torrentId.path) {
       // Use path string instead of W3C File object
       torrentId = torrentId.path
@@ -40,7 +40,10 @@ module.exports = class TorrentListController {
 
     ipcRenderer.send('wt-start-torrenting', torrentKey, torrentId, path)
 
-    dispatch('backToList')
+    if (!stayPage)
+      dispatch('backToList')
+    if (snackBar)
+      this.state.snackBar = true
   }
 
   // Shows the Create Torrent page with options to seed a given file or folder

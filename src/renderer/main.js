@@ -105,6 +105,10 @@ function onState (err, _state) {
       const TorrentController = require('./controllers/torrent-controller')
       return new TorrentController(state)
     }),
+    searchTorrent: createGetter(() => {
+      const SearchController = require('./controllers/search-torrent-controller')
+      return new SearchController(state, config)
+    }),
     torrentList: createGetter(() => {
       return new TorrentListController(state)
     }),
@@ -234,7 +238,7 @@ const dispatchHandlers = {
   'openFiles': () => ipcRenderer.send('openFiles'), /* shows the open file dialog */
   'openTorrentAddress': () => { state.modal = { id: 'open-torrent-address-modal' } },
 
-  'addTorrent': (torrentId) => controllers.torrentList().addTorrent(torrentId),
+  'addTorrent': (torrentId, stayPage, snackBar) => controllers.torrentList().addTorrent(torrentId, stayPage, snackBar),
   'showCreateTorrent': (paths) => controllers.torrentList().showCreateTorrent(paths),
   'createTorrent': (options) => controllers.torrentList().createTorrent(options),
   'toggleTorrent': (infoHash) => controllers.torrentList().toggleTorrent(infoHash),
@@ -297,6 +301,10 @@ const dispatchHandlers = {
   'updatePreferences': (key, value) => controllers.prefs().update(key, value),
   'checkDownloadPath': checkDownloadPath,
 
+  // Search screen
+  'search-torrent': () => controllers.searchTorrent().show(),
+  'getSearchTorrent': (name)=> controllers.searchTorrent().getSearchTorrent(),
+  'setActiveSearchTorrent': (name)=> controllers.searchTorrent().setActiveSearchTorrent(name),
   // Update (check for new versions on Linux, where there's no auto updater)
   'updateAvailable': (version) => controllers.update().updateAvailable(version),
   'skipVersion': (version) => controllers.update().skipVersion(version),

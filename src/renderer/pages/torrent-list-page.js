@@ -232,21 +232,21 @@ module.exports = class TorrentList extends React.Component {
         <i
           key='play-button'
           title='Start streaming'
-          className={'icon play'}
+          className={'icon play pointer'}
           onClick={dispatcher('playFile', infoHash)}>
-          play_circle_outline
+          play
         </i>
       )
     }
-
+    let deleteMode = (torrentSummary.status !== 'seeding') ? "confirmDeleteTorrent" : "deleteTorrent";
     return (
       <div className='torrent-controls'>
         {playButton}
         <i
           key='delete-button'
-          className='icon delete'
+          className='icon delete pointer'
           title='Remove torrent'
-          onClick={dispatcher('confirmDeleteTorrent', infoHash, false)}>
+          onClick={dispatcher(deleteMode, infoHash, false)}>
           close
         </i>
       </div>

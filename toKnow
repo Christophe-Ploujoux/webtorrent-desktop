@@ -1,0 +1,38 @@
+Changer de page
+state.location.go({
+  url: 'player',
+  setup: (cb) => {
+    const torrentSummary = TorrentSummary.getByKey(state, infoHash)
+
+    if (index === undefined || initialized) index = torrentSummary.mostRecentFileIndex
+    if (index === undefined) index = torrentSummary.files.findIndex(TorrentPlayer.isPlayable)
+    if (index === undefined) return cb(new UnplayableTorrentError())
+
+    initialized = true
+
+    this.openPlayer(infoHash, index, (err) => {
+      if (!err) this.play()
+      cb(err)
+    })
+  },
+  destroy: () => this.closePlayer()
+}, (err) => {
+  if (err) dispatch('error', err)
+})
+
+
+Ajouter un torrent
+function handleOK () {
+  dispatch('exitModal')
+  dispatch('addTorrent', this.torrentURL.input.value)
+}
+
+
+Chercher sur pirateBay
+const PirateBay = require('thepiratebay');
+
+PirateBay.search('Game of Thrones', {
+  category: 205
+})
+.then(results => console.log(results))
+.catch(err => console.log(err))
