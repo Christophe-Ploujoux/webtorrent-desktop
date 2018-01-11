@@ -22,22 +22,26 @@ class SearchPage extends React.Component {
     super(props)
   }
 
+  componentDidMount() {
+    if (this.refs["search-bar"]) {
+      this.refs["search-bar"].focus()
+    }
+    this.keepFocus()
+  }
+
+  keepFocus() {
+    setInterval(() => {
+      if (this.refs["search-bar"]) {
+        this.refs["search-bar"].focus()
+      }
+    }, 1000)
+  }
   handleSubmit() {
     dispatch('getSearchTorrent', 'Game of thrones');    
   }
 
   handleDownloadTorrent(torrent) {
     dispatch('addTorrent', torrent.magnet, true, true)
-  }
-
-  render () {
-    return (
-      <div className="search-torrent-page">
-        {this.renderForm()}
-        {this.props.state.searchLoading ? this.renderLoader() : this.renderTable() }
-        {this.renderSnackBar()}
-      </div>
-    )
   }
 
   renderTableRows() {
@@ -48,12 +52,7 @@ class SearchPage extends React.Component {
     return this.props.state.saved.searchTorrents.map((torrent) => {
       return (
         <TableRow>
-          <TableRowColumn style={style}>{torrent.name}</TableRowColumn>
-          <TableRowColumn>{torrent.category}</TableRowColumn>
-          <TableRowColumn>{torrent.seeds}</TableRowColumn>
-          <TableRowColumn>{torrent.peers}</TableRowColumn>
-          <TableRowColumn>{torrent.size}</TableRowColumn>
-          <TableRowColumn>
+          <TableRowColumn style={{width:"70px"}}>
             <i
               className='icon url'
               title='Download torrent'
@@ -61,6 +60,11 @@ class SearchPage extends React.Component {
               file_download
             </i>
           </TableRowColumn>
+          <TableRowColumn style={style}>{torrent.name}</TableRowColumn>
+          <TableRowColumn>{torrent.category}</TableRowColumn>
+          <TableRowColumn>{torrent.seeds}</TableRowColumn>
+          <TableRowColumn>{torrent.peers}</TableRowColumn>
+          <TableRowColumn>{torrent.size}</TableRowColumn>
         </TableRow>
       )
     });
@@ -74,12 +78,12 @@ class SearchPage extends React.Component {
       <Table>
         <TableHeader displaySelectAll={false} adjustForCheckbox={false}>
           <TableRow>
+            <TableHeaderColumn style={{width:"70px"}}></TableHeaderColumn>
             <TableHeaderColumn style={style}>Name</TableHeaderColumn>
             <TableHeaderColumn>Category</TableHeaderColumn>
             <TableHeaderColumn>Seeders</TableHeaderColumn>
             <TableHeaderColumn>Leecher</TableHeaderColumn>
             <TableHeaderColumn>Size</TableHeaderColumn>
-            <TableHeaderColumn></TableHeaderColumn>
           </TableRow>
         </TableHeader>
         <TableBody displayRowCheckbox={false}>
@@ -98,11 +102,18 @@ class SearchPage extends React.Component {
   }
 
   renderForm() {
+    let styleField = {
+      "font-size": "25px",
+      width: "700px"
+    }
     return (
-      <form className="search-form" onSubmit={(event) => dispatch('getSearchTorrent')}>
+      <form style={styleField} className="search-form" onSubmit={(event) => dispatch('getSearchTorrent')}>
         <TextField
+          style={styleField}
+          inputStyle={styleField}
+          floatingLabelText="Search a torrent"
+          ref="search-bar"
           className="search-input-field"
-          hintText="Chercher un torrent"
           value={this.props.state.saved.activeSearchTorrent}
           onChange={(event) => dispatch('setActiveSearchTorrent', event.target.value)}
         /><br />
@@ -118,6 +129,16 @@ class SearchPage extends React.Component {
         autoHideDuration={4000}
         onRequestClose={()=> this.props.state.snackBar = false}
       />
+    )
+  }
+
+  render () {
+    return (
+      <div className="search-torrent-page">
+        {this.renderForm()}
+        {this.props.state.searchLoading ? this.renderLoader() : this.renderTable() }
+        {this.renderSnackBar()}
+      </div>
     )
   }
 }
