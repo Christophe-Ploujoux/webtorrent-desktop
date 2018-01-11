@@ -26,16 +26,8 @@ class SearchPage extends React.Component {
     if (this.refs["search-bar"]) {
       this.refs["search-bar"].focus()
     }
-    this.keepFocus()
   }
 
-  keepFocus() {
-    setInterval(() => {
-      if (this.refs["search-bar"]) {
-        this.refs["search-bar"].focus()
-      }
-    }, 1000)
-  }
   handleSubmit() {
     dispatch('getSearchTorrent', 'Game of thrones');    
   }
