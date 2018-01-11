@@ -21,11 +21,12 @@ const magnetURI = (hash, title) => {
 }
 
 exports.search = (query, callback) => {
-  axios({url: API.list, method: 'GET', qs: {query_term: query}, json: true}, (err, res, body) => {
-    if (err) return callback(err)
-    if (res.statusCode !== 200) {
+  axios({url: API.list, method: 'get', params: {query_term: query}})
+  .then((res) => {
+    if (res.status !== 200) {
       return callback(new Error(`Bad status code: ${res.statusCode}`))
     }
+    let body = res.data;
     if (!body) {
       return callback(new Error('Body not found'))
     }
@@ -44,14 +45,16 @@ exports.search = (query, callback) => {
     })
     callback(null, movies)
   })
+  .catch(err => callback(err))
 }
 
 exports.detail = (id, callback) => {
-  axios({url: API.detail, method: 'GET', qs: {movie_id: id}, json: true}, (err, res, body) => {
-    if (err) return callback(err)
-    if (res.statusCode !== 200) {
+  axios({url: API.detail, method: 'get', params: {movie_id: id}})
+  .then((res) => {
+    if (res.status !== 200) {
       return callback(new Error(`Bad status code: ${res.statusCode}`))
     }
+    let body = res.data;
     if (!body) {
       return callback(new Error('Body not found'))
     }
@@ -67,5 +70,5 @@ exports.detail = (id, callback) => {
       }
     })
     callback(null, movie)
-  })
+  }).catch(err => callback(err))
 }

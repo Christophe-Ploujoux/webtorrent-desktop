@@ -2,9 +2,6 @@ const PirateBay = require("thepiratebay");
 const yify = require("./yify");
 const eztv = require('./eztv');
 
-const nodeConsole = require('console');
-const myConsole = new nodeConsole.Console(process.stdout, process.stderr);
-
 class TorrentSearch {
   static search(name) {
     return new Promise((resolve, reject) => {
